@@ -40,6 +40,27 @@
                 </div>
 
                 <div class="card-footer">
+                    <nav id="paginator">
+                        <ul class="pagination">
+                        <!--
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+
+                            <li class="page-item active">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        -->
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>        
@@ -52,7 +73,7 @@
                 return  "<tr>" + 
                             "<td>" + cliente.id         + "</td>" +
                             "<td>" + cliente.nome       + "</td>" +
-                            "<td>" + cliente.sobrenome  + "</td>" +
+                            "<td>" + cliente.sobreNome  + "</td>" +
                             "<td>" + cliente.email      + "</td>" +
                         "<tr>";
             }
@@ -67,9 +88,30 @@
                 }
             }
 
+            function getItem(data, i) {
+                active = "";
+                if (i == data.current_page) {
+                    active = "active";
+                }
+
+                s = '<li class="page-item ' + active + '"><a class="page-link" href="#">' + i + '</a></li>';
+
+                return s;
+                
+            }
+
+            function montarPaginator(data) {
+                for (i = 1; i < data.total; i++) {
+                    s = getItem(data, i);
+
+                    $("#paginator>ul").append(s);
+                }
+            }
+
             function carregarClientes(pagina) {
                 $.get('/json', {page: pagina}, function (resp) {
                     montarTabela(resp);
+                    montarPaginator(resp);
                 });
             }
             
