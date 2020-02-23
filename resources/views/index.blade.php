@@ -51,8 +51,8 @@
                     </table>
                 </div>
 
-                <div>
-
+                <div class="card-footer">
+                    Paginas
                 </div>
             </div>
         </div>        
