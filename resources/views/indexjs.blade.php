@@ -94,30 +94,32 @@
                     active = "active";
                 }
 
-                s = '<li class="page-item ' + active + '"><a class="page-link" href="#">' + i + '</a></li>';
+                s = '<li class="page-item ' + active + '"><a class="page-link" ' + ' pagina="' + i + '" href="#">' + i + '</a></li>';
 
                 return s;
                 
             }
 
             function getItemProximo(data) {
+                i = data.current_page + 1;
                 active = "";
                 if (data.last_page == data.current_page) {
                     active = "disabled";
                 }
 
-                s = '<li class="page-item ' + active + '"><a class="page-link" href="#">Proximo</a></li>';
+                s = '<li class="page-item ' + active + '"><a class="page-link" pagina="' + i + '" href="#">Proximo</a></li>';
 
                 return s;
             }
 
             function getItemAnterior(data) {
                 active = "";
+                i = data.current_page - 1;
                 if (1 == data.current_page) {
                     active = "disabled";
                 }
 
-                s = '<li class="page-item ' + active + '"><a class="page-link" href="#">Anterior</a></li>';
+                s = '<li class="page-item ' + active + '"><a class="page-link" pagina="' + i + '" href="#">Anterior</a></li>';
 
                 return s;
             }
@@ -148,6 +150,10 @@
                 $.get('/json', {page: pagina}, function (resp) {
                     montarTabela(resp);
                     montarPaginator(resp);
+                    
+                    $("#paginator>ul>li>a").click(function() {
+                        carregarClientes($(this).attr('pagina'));
+                    });
                 });
             }
             
