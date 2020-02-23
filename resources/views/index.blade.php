@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="card-footer">
-                    Paginas
+                    {{ $clientes->links() }}
                 </div>
             </div>
         </div>        
