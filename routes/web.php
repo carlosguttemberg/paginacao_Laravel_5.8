@@ -11,4 +11,7 @@
 |
 */
 
-Route::get('/', 'ClienteControlador@index');
+// Route::get('/', 'ClienteControlador@index');
+
+Route::get('/', 'ClienteControlador@indexJs');
+Route::get('/json', 'ClienteControlador@indexJson');
