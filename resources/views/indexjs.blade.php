@@ -100,12 +100,48 @@
                 
             }
 
+            function getItemProximo(data) {
+                active = "";
+                if (data.last_page == data.current_page) {
+                    active = "disabled";
+                }
+
+                s = '<li class="page-item ' + active + '"><a class="page-link" href="#">Proximo</a></li>';
+
+                return s;
+            }
+
+            function getItemAnterior(data) {
+                active = "";
+                if (1 == data.current_page) {
+                    active = "disabled";
+                }
+
+                s = '<li class="page-item ' + active + '"><a class="page-link" href="#">Anterior</a></li>';
+
+                return s;
+            }
+
             function montarPaginator(data) {
-                for (i = 1; i < data.total; i++) {
+                // $("#paginator>ul").remove();
+                $("#paginator>ul").html(getItemAnterior(data));
+                n        = 10;
+
+                if ((data.current_page - n/2) <= 1) {
+                    inicio = 1;
+                } else if ( (data.last_page - data.current_page) < n){
+                    inicio = data.last_page - n + 1;
+                } else {
+                    inicio = data.current_page - n/2;
+                }
+
+                fim      = inicio + n - 1;
+                for (i = inicio; i <= fim; i++) {
                     s = getItem(data, i);
 
                     $("#paginator>ul").append(s);
                 }
+                $("#paginator>ul").append(getItemProximo(data));
             }
 
             function carregarClientes(pagina) {
