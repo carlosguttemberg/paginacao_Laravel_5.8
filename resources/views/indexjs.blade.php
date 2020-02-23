@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="card-body">
-                    <h5 class="card-title"></h5>
+                    <h5 class="card-title" id="cardTitle"></h5>
                     <table class="table table-hover" id="tabelaClientes">
                         <thead>
                             <tr>
@@ -94,7 +94,7 @@
                     active = "active";
                 }
 
-                s = '<li class="page-item ' + active + '"><a class="page-link" ' + ' pagina="' + i + '" href="#">' + i + '</a></li>';
+                s = '<li class="page-item ' + active + '"><a class="page-link" ' + ' pagina="' + i + '" href="javascript:void(0);">' + i + '</a></li>';
 
                 return s;
                 
@@ -107,7 +107,7 @@
                     active = "disabled";
                 }
 
-                s = '<li class="page-item ' + active + '"><a class="page-link" pagina="' + i + '" href="#">Proximo</a></li>';
+                s = '<li class="page-item ' + active + '"><a class="page-link" pagina="' + i + '" href="javascript:void(0);">Proximo</a></li>';
 
                 return s;
             }
@@ -119,7 +119,7 @@
                     active = "disabled";
                 }
 
-                s = '<li class="page-item ' + active + '"><a class="page-link" pagina="' + i + '" href="#">Anterior</a></li>';
+                s = '<li class="page-item ' + active + '"><a class="page-link" pagina="' + i + '" href="javascript:void(0);">Anterior</a></li>';
 
                 return s;
             }
@@ -150,10 +150,12 @@
                 $.get('/json', {page: pagina}, function (resp) {
                     montarTabela(resp);
                     montarPaginator(resp);
-                    
+
                     $("#paginator>ul>li>a").click(function() {
                         carregarClientes($(this).attr('pagina'));
                     });
+
+                    $("#cardTitle").html("Exibindo " + resp.per_page + " clientes de " + resp.total + " ( " + resp.from + " a " + resp.to + " ) ");
                 });
             }
             
